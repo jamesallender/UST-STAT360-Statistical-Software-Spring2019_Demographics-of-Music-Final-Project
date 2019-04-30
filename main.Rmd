@@ -1,0 +1,25 @@
+---
+title: "main"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+install.packages("gdata")
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+require (gdata)
+favorite_music_genres_in_the_us_2018_by_age = read.xls("./inst/extdata/statistic_id253915_favorite-music-genres-in-the-us-2018-by-age.xlsx", sheet = 2, startCol = 2, endCol = 9, skip = 2,header = TRUE)
+
+music_listening_frequency_in_the_us_2017_by_age = read.xls("./inst/extdata/statistic_id749666_music-listening-frequency-in-the-us-2017-by-age.xlsx", sheet = 2,  skip = 2,header = TRUE)
+
+music_genres_which_have_the_most_racial_diversity_in_the_us_2018 = read.xls("./inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
+```
+
