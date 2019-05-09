@@ -1,0 +1,37 @@
+Package: musicDemographicsPackage
+Title: Visualized Demographics of Music
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "James",
+           family = "Allender",
+           role = c("aut", "cre"),
+           email = "alle30842@stthomas.edu"),
+        person(given = "Tristan",
+           family = "Van Dreser",
+           role = c("cph", "fnd"),
+           email = "vand2899@stthomas.edu"),
+        person(given = "Anh",
+           family = "Nguyen",
+           role = c("cph", "fnd"),
+           email = "nguy8318@stthomas.edu"),
+        person(given = "Saleena",
+           family = "Ly",
+           role = c("cph", "fnd"),
+           email = "ly003004@stthomas.edu"))
+Description: This package is a compilation of data concerning the music listening habits of various demographics. 
+  The package organizes, analyzes, and visualizes the compiled data to provide greater insight into the listening 
+  habits of groups of the world.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    gdata,
+    dplyr,
+    tidyr,
+    ggplot2

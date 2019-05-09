@@ -1,0 +1,38 @@
+---
+title: "main"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+library(tidyverse)
+library(dplyr)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+require (gdata)
+require (tidyverse)
+
+dt1 = read.xls("./inst/extdata/statistic_id253915_favorite-music-genres-in-the-us-2018-by-age.xlsx", sheet = 2, skip = 2,header = TRUE)
+genres_age_1 = dt1 %>% select (-X.1)
+
+#tristan
+dt2 = read.xls("./inst/extdata/statistic_id749666_music-listening-frequency-in-the-us-2017-by-age.xlsx", sheet = 2,  skip = 2,header = TRUE)
+genres_age_2 = dt2 %>% select (-X.1)
+
+#already tidied
+dt3 = read.xls("./inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
+listening_frequency_age = dt3 %>% select (-X.1)
+
+saveRDS(listening_frequency_age, file="./data/listening_frequency_age_c.rds")
+```
+
