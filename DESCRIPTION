@@ -30,3 +30,8 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Imports: 
+    gdata,
+    dplyr,
+    tidyr,
+    ggplot2

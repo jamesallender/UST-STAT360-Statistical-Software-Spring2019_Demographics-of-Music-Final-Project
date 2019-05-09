@@ -6,6 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 install.packages("gdata")
+install.packages("tidyverse")
 ```
 
 ## R Markdown
@@ -16,10 +17,17 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r cars}
 require (gdata)
-favorite_music_genres_in_the_us_2018_by_age = read.xls("./inst/extdata/statistic_id253915_favorite-music-genres-in-the-us-2018-by-age.xlsx", sheet = 2, startCol = 2, endCol = 9, skip = 2,header = TRUE)
+require (tidyverse)
 
-music_listening_frequency_in_the_us_2017_by_age = read.xls("./inst/extdata/statistic_id749666_music-listening-frequency-in-the-us-2017-by-age.xlsx", sheet = 2,  skip = 2,header = TRUE)
+dt1 = read.xls("./inst/extdata/statistic_id253915_favorite-music-genres-in-the-us-2018-by-age.xlsx", sheet = 2, skip = 2,header = TRUE)
+genres_age_1 = dt1 %>% select (-X.1)
 
-music_genres_which_have_the_most_racial_diversity_in_the_us_2018 = read.xls("./inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
+dt2 = read.xls("./inst/extdata/statistic_id749666_music-listening-frequency-in-the-us-2017-by-age.xlsx", sheet = 2,  skip = 2,header = TRUE)
+genres_age_2 = dt2 %>% select (-X.1)
+
+dt3 = read.xls("./inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
+listening_frequency_age = dt3 %>% select (-X.1)
+
+saveRDS(listening_frequency_age, file="./data/listening_frequency_age_c.rds")
 ```
 
