@@ -34,6 +34,10 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
+<<<<<<< HEAD
 musicDemographicsPackage.Rcheck/
 musicDemographicsPackage*.tar.gz
 musicDemographicsPackage*.tgz
+=======
+inst/doc
+>>>>>>> 4c8984a73a5e76db7c51d4c41d76a777eaefe35b

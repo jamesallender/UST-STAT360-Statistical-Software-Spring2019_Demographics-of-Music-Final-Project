@@ -1,0 +1,49 @@
+---
+title: "data_wrangling"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{data_wrangling}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(musicDemographicsPackage)
+library (gdata)
+library (dplyr)
+library (tidyr)
+library (ggplot2)
+
+```
+
+```{r cars}
+dt1 = read.xls("../inst/extdata/statistic_id253915_favorite-music-genres-in-the-us-2018-by-age.xlsx", sheet = 2, skip = 2,header = TRUE)
+genres_age_1 = dt1 %>% select (-X.1)
+
+dt2 = read.xls("../inst/extdata/statistic_id749666_music-listening-frequency-in-the-us-2017-by-age.xlsx", sheet = 2,  skip = 2,header = TRUE)
+genres_age_2 = dt2 %>% select (-X.1)
+
+dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
+listening_frequency_age = dt3 %>% select (-X.1)
+
+genres_age_1
+
+
+saveRDS(genres_age_1, file="../data/genres_age_1_c")
+saveRDS(genres_age_2, file="../data/genres_age_2_c")
+saveRDS(listening_frequency_age, file="../data/listening_frequency_age_c.rds")
+
+
+```
+
+```{r}
+
+```
+
