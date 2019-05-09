@@ -23,7 +23,7 @@ library (ggplot2)
 
 ```
 
-```{r cars}
+```{r}
 dt1 = read.xls("../inst/extdata/statistic_id253915_favorite-music-genres-in-the-us-2018-by-age.xlsx", sheet = 2, skip = 2,header = TRUE)
 genres_by_age_2018 = rename(dt1, "Genre" = "X","16-19" ="X16.19","20-24"="X20.24","25-34" ="X25.34","35-44" ="X35.44","45-54" ="X45.54","55-64" ="X55.64","65+" ="X65.") %>% select (-X.1)
 
@@ -31,7 +31,7 @@ dt2 = read.xls("../inst/extdata/statistic_id749666_music-listening-frequency-in-
 listening_frequency_by_age_2017 = rename(dt2, "Generation" = "X","4-6 per week" ="X4.6.times.a.week","1-3 per week"="X1.3.times.a.week","Few Times a Month" ="Few.times.a.month","Monthly or Less" ="Monthly.or.less") %>% select (-X.1)
 
 dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
-racialy_diverse_music_2018 = dt3 %>% select (-X.1)
+racialy_diverse_music_2018 = rename(dt3, "Genre" = "X","% of Responce" ="Share.of.respondents") %>% select (-X.1)
 
 saveRDS(genres_by_age_2018, file="../data/genres_by_age_2018.rds")
 saveRDS(listening_frequency_by_age_2017, file="../data/listening_frequency_by_age_2017.rds")
