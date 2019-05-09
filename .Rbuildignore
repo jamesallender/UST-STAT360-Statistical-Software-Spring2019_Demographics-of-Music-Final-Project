@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^musicDemographicsPackage\.Rcheck$
+^musicDemographicsPackage.*\.tar\.gz$
+^musicDemographicsPackage.*\.tgz$
+
