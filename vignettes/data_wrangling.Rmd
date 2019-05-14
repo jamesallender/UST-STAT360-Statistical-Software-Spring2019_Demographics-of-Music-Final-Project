@@ -40,4 +40,8 @@ racialy_diverse_music_2018 = rename(dt3, "Genre" = "X","% of Responce" ="Share.o
 saveRDS(genres_by_age_2018, file="../data/genres_by_age_2018.rds")
 saveRDS(listening_frequency_by_age_2017, file="../data/listening_frequency_by_age_2017.rds")
 saveRDS(racialy_diverse_music_2018, file="../data/racialy_diverse_music_2018.rds")
+
+use_data(genres_by_age_2018, overwrite = TRUE)
+use_data(listening_frequency_by_age_2017, overwrite = TRUE)
+use_data(racialy_diverse_music_2018, overwrite = TRUE)
 ```

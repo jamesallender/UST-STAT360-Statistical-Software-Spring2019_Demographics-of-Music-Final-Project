@@ -15,14 +15,14 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library (musicDemographicsPackage)
-library (gdata)
-library (dplyr)
-library (tidyr)
-library (ggplot2)
+library(musicDemographicsPackage)
+library(gdata)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 ```
 
-
+This is the same graph as the [website](statista.com). 
 ```{r}
 # Data 1 Graph 1
 genres_by_age_2018 %>% ggplot() + 
@@ -34,14 +34,29 @@ genres_by_age_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+WE thougght we could do better...
+
 ```{r}
 # Data 1 Graph 2
-genres_by_age_2018 %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity", show.legend = FALSE) +
+p <- genres_by_age_2018 %>% ggplot() + 
+  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
   facet_wrap(vars(genre), scales = "free_x") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-  labs(x = "Genres", y = "Total Share % of Respondents") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   guides(fill=guide_legend(title="Age Ranges")) + 
-  ggtitle("Favorite music genres among consumers in the United States\n as of July 2018, by age group") +
+  ggtitle("Favorite music genres in the United States\n as of July 2018, by age group") +
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(axis.text.x = element_blank())
+p
+```
+
+```{r}
+# Data 2 Graph 1
+listening_frequency_by_age_2017 %>% ggplot() + 
+  geom_bar(mapping = aes(x=Frequency, y=number, fill = Frequency), stat="identity") +
+  facet_grid(cols=vars(Generation))+
+  theme(axis.text.x = element_blank())+
+  labs(x = "Frequency", y = "Total Share % of Respondents") +
+  guides(fill=guide_legend(title="Age Ranges")) + 
+  ggtitle("Music listening frequency in the United States\n as of August 2017, by age") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
