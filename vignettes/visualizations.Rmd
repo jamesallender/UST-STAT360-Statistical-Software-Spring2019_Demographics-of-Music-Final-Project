@@ -1,0 +1,47 @@
+---
+title: "visualizations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{data_wrangling}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library (musicDemographicsPackage)
+library (gdata)
+library (dplyr)
+library (tidyr)
+library (ggplot2)
+```
+
+
+```{r}
+# Data 1 Graph 1
+genres_by_age_2018 %>% ggplot() + 
+  geom_bar(mapping = aes(x=genre, y=percent_response, fill=age_range), stat="identity", color="white") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(x = "Genres", y = "Total Share % of Respondents") + 
+  guides(fill=guide_legend(title="Age Ranges"))+
+  ggtitle("Favorite music genres among consumers in the United States\n as of July 2018, by age group") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+# Data 1 Graph 2
+genres_by_age_2018 %>% ggplot() + 
+  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity", show.legend = FALSE) +
+  facet_wrap(vars(genre), scales = "free_x") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  labs(x = "Genres", y = "Total Share % of Respondents") +
+  guides(fill=guide_legend(title="Age Ranges")) + 
+  ggtitle("Favorite music genres among consumers in the United States\n as of July 2018, by age group") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
