@@ -1,0 +1,23 @@
+---
+title: "tidied_frequency_by_age_2017"
+output: html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library (musicDemographicsPackage)
+library (gdata)
+library (dplyr)
+library (tidyr)
+library (ggplot2)
+```
+
+```{r}
+listening_frequency_by_age_2017 = rename(dt2, "Generation" = "X","4-6 per week" ="X4.6.times.a.week","1-3 per week"="X1.3.times.a.week","Few Times a Month" ="Few.times.a.month","Monthly or Less" ="Monthly.or.less") %>% select (-X.1) %>% gather("Frequency", "number", 2:7)
+```

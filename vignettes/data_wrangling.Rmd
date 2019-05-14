@@ -20,7 +20,6 @@ library (gdata)
 library (dplyr)
 library (tidyr)
 library (ggplot2)
-
 ```
 
 ```{r}
@@ -30,7 +29,7 @@ select (-X.1)%>%
 gather("Age Range", "Percent that said it was their favorite", -"Genre")
 
 dt2 = read.xls("../inst/extdata/statistic_id749666_music-listening-frequency-in-the-us-2017-by-age.xlsx", sheet = 2,  skip = 2,header = TRUE)
-listening_frequency_by_age_2017 = rename(dt2, "Generation" = "X","4-6 per week" ="X4.6.times.a.week","1-3 per week"="X1.3.times.a.week","Few Times a Month" ="Few.times.a.month","Monthly or Less" ="Monthly.or.less") %>% select (-X.1)
+listening_frequency_by_age_2017 = rename(dt2, "Generation" = "X","4-6 per week" ="X4.6.times.a.week","1-3 per week"="X1.3.times.a.week","Few Times a Month" ="Few.times.a.month","Monthly or Less" ="Monthly.or.less") %>% select (-X.1) %>% gather("Frequency", "number", 2:7)
 
 dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
 racialy_diverse_music_2018 = rename(dt3, "Genre" = "X","% of Responce" ="Share.of.respondents") %>% select (-X.1)
