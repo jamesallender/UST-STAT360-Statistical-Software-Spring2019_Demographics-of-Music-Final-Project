@@ -39,8 +39,8 @@ WE thougght we could do better...
 ```{r}
 # Data 1 Graph 2
 p <- genres_by_age_2018 %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  facet_wrap(vars(genre), scales = "free_x") +
+  geom_bar(mapping = aes(x=genre, y=percent_response, fill = genre), stat="identity") +
+  facet_wrap(vars(age_range), scales = "free_x") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   guides(fill=guide_legend(title="Age Ranges")) + 
   ggtitle("Favorite music genres in the United States\n as of July 2018, by age group") +
@@ -59,4 +59,8 @@ listening_frequency_by_age_2017 %>% ggplot() +
   guides(fill=guide_legend(title="Age Ranges")) + 
   ggtitle("Music listening frequency in the United States\n as of August 2017, by age") +
   theme(plot.title = element_text(hjust = 0.5))
+
+
+for_cats package
+fct_reorder()
 ```
