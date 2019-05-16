@@ -35,13 +35,68 @@ listening_frequency_by_age_2017 = rename(dt2, "Generation" = "X","4-6 per week" 
 
 # https://www.statista.com/statistics/864622/music-genre-diversity/
 dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
-racialy_diverse_music_2018 = rename(dt3, "Genre" = "X","% of Responce" ="Share.of.respondents") %>% select (-X.1)
+racially_diverse_music_2018 = rename(dt3, "genre" = "X","percent_response" ="Share.of.respondents") %>% select (-X.1)
 
 saveRDS(genres_by_age_2018, file="../data/genres_by_age_2018.rds")
 saveRDS(listening_frequency_by_age_2017, file="../data/listening_frequency_by_age_2017.rds")
-saveRDS(racialy_diverse_music_2018, file="../data/racialy_diverse_music_2018.rds")
+saveRDS(racially_diverse_music_2018, file="../data/racially_diverse_music_2018.rds")
 
 use_data(genres_by_age_2018, overwrite = TRUE)
 use_data(listening_frequency_by_age_2017, overwrite = TRUE)
-use_data(racialy_diverse_music_2018, overwrite = TRUE)
+use_data(racially_diverse_music_2018, overwrite = TRUE)
+
+
 ```
+
+Make New Graphs of data
+mutate with case or id 
+```{r}
+genres_by_age_2018_mod <- genres_by_age_2018 %>% 
+mutate(Generation = case_when(
+       age_range == "16-19" ~ "Gen Z (18-24)",
+        age_range == "20-24" ~ "Gen Z (18-24)",
+        age_range == "25-34" ~ "Millennial (25-34)",
+        age_range == "35-44" ~ "35 and older",
+        age_range == "45-54" ~ "35 and older",
+        age_range == "55-64" ~ "35 and older",
+        age_range == "65+" ~ "35 and older"))
+
+thing <- genres_by_age_2018_mod %>% inner_join(listening_frequency_by_age_2017, by = "Generation")
+```
+
+
+diversity and music preference
+```{r}
+# https://www.statista.com/statistics/864622/music-genre-diversity/
+dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
+racially_diverse_music_2018_2 = rename(dt3, "genre_old" = "X","diverse_percent_response" ="Share.of.respondents") %>% select (-X.1)
+
+
+racially_diverse_music_2018_mod <- racially_diverse_music_2018_2 %>% 
+mutate(genre = case_when(
+         genre_old == "Rap/Hip-Hop" ~ "Hip Hop/Rap",
+        genre_old == "Pop" ~ "Pop Music",
+        genre_old == "Jazz" ~ "RnB (Rhythm and Blues)",
+        genre_old == "Blues" ~ "RnB (Rhythm and Blues)",
+        genre_old == "R&B" ~ "RnB (Rhythm and Blues)",
+        genre_old == "Reggae" ~ "RnB (Rhythm and Blues)",
+        genre_old == "Classic rock" ~ "Classic Rock",
+        genre_old == "World Music" ~ "Indie/Alternative Rock",
+        genre_old == "Soul/Funk" ~ "RnB (Rhythm and Blues)",
+        genre_old == "Alternative/Indie" ~ "Indie/Alternative Rock",
+        genre_old == "Dance/Electronic" ~ "Instrumental",
+        genre_old == "Hard rock/Metal" ~ "Rock Music",
+        genre_old == "Punk Rock" ~ "Rock Music",
+        genre_old == "Country" ~ "Country/Western",
+        genre_old == "Contemporary Christian" ~ "Indie/Alternative Rock",
+        genre_old == "New Age" ~ "Indie/Alternative Rock",
+        genre_old == "Classical" ~ "Instrumental",
+        genre_old == "Folk" ~ "Indie/Alternative Rock"))
+
+combind_data <- racially_diverse_music_2018_mod %>% inner_join(genres_by_age_2018, by = "genre")
+
+drop <- combind_data %>% select (-genre_old)
+drop[c(2,3,1,4)]
+  
+```
+

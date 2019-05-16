@@ -20,6 +20,7 @@ library(gdata)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(forcats)
 ```
 
 This is the same graph as the [website](statista.com). 
@@ -44,6 +45,21 @@ p <- genres_by_age_2018 %>% ggplot() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   guides(fill=guide_legend(title="Age Ranges")) + 
   ggtitle("Favorite music genres in the United States\n as of July 2018, by age group") +
+  labs(x = "", y = "Total Share % of Respondents") +
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(axis.text.x = element_blank())
+p
+```
+
+```{r}
+# Data 1 Graph 3
+p <- genres_by_age_2018 %>% ggplot() + 
+  geom_bar(mapping = aes(x=genre, y=percent_response, fill = genre), stat="identity") +
+  facet_wrap(vars(age_range), scales = "free_x") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  guides(fill=guide_legend(title="Age Ranges")) + 
+  ggtitle("Favorite music genres in the United States\n as of July 2018, by age group") +
+  labs(x = "", y = "Total Share % of Respondents") +
   theme(plot.title = element_text(hjust = 0.5))+
   theme(axis.text.x = element_blank())
 p
@@ -51,16 +67,43 @@ p
 
 ```{r}
 # Data 2 Graph 1
-listening_frequency_by_age_2017 %>% ggplot() + 
+listening_frequency_by_age_2017 %>% 
+  mutate(Frequency = fct_relevel(Frequency, "Everyday", "4-6 per week", "1-3 per week", "Few Times a Month", "Monthly or Less", "Never")) %>% 
+  mutate(Generation = fct_relevel(Generation, "Gen Z (18-24)", "Millennial (25-34)", "35 and older", "Total USA")) %>% 
+  ggplot() + 
   geom_bar(mapping = aes(x=Frequency, y=number, fill = Frequency), stat="identity") +
   facet_grid(cols=vars(Generation))+
   theme(axis.text.x = element_blank())+
-  labs(x = "Frequency", y = "Total Share % of Respondents") +
-  guides(fill=guide_legend(title="Age Ranges")) + 
+  labs(x = "", y = "Total Share % of Respondents") +
+  guides(fill=guide_legend(title="Listening Ranges")) + 
   ggtitle("Music listening frequency in the United States\n as of August 2017, by age") +
   theme(plot.title = element_text(hjust = 0.5))
 
 
 for_cats package
 fct_reorder()
+```
+
+
+```{r}
+# Data 3 Graph 1
+racially_diverse_music_2018 %>% ggplot() + 
+  geom_bar(mapping = aes(x=genre, y=percent_response), stat="identity", color="white", fill="blue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(x = "Genres", y = "Total Share % of Respondents") + 
+  guides(fill=guide_legend(title="Age Ranges"))+
+  ggtitle("Public opinion on the racial diversity of selected music genres\n in the United States as of May 2018") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+order by % respoce fct_reorder
+```{r}
+# Data 3 Graph 1
+racially_diverse_music_2018 %>% ggplot() + 
+  geom_bar(mapping = aes(x=genre, y=percent_response), stat="identity", color="white", fill="blue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(x = "Genres", y = "Total Share % of Respondents") + 
+  guides(fill=guide_legend(title="Age Ranges"))+
+  ggtitle("Public opinion on the racial diversity of selected music genres\n in the United States as of May 2018") +
+  theme(plot.title = element_text(hjust = 0.5))
 ```
