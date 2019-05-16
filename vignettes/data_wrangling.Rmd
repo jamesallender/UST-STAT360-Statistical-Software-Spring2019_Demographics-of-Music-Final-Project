@@ -20,6 +20,7 @@ library (gdata)
 library (dplyr)
 library (tidyr)
 library (ggplot2)
+library (devtools)
 ```
 
 ```{r}
@@ -96,7 +97,8 @@ mutate(genre = case_when(
 combind_data <- racially_diverse_music_2018_mod %>% inner_join(genres_by_age_2018, by = "genre")
 
 drop <- combind_data %>% select (-genre_old)
-drop[c(2,3,1,4)]
+liked_diverse_music <- rename(drop[c(2,3,1,4)], "likeability_percent_response" = "percent_response")
+
   
 ```
 
