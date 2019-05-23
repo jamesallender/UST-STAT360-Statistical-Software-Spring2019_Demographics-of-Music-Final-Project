@@ -136,14 +136,11 @@ generate_plots <- function(str_genre){
     theme(axis.text.x = element_blank())+
     theme(axis.text.y = element_blank())+
     coord_cartesian(ylim = c(0,100)) 
-    
-  preference_g
   
   plot <- ggdraw() +
   draw_text(paste(str_genre, "Genre Preference Compared\n to the Perception of Its Diversity by Age"), x = 0.5, y = .95) +
   draw_plot(preference_g + theme(legend.justification = "bottom"), x = 0, y = 0, width = 0.91, height =0.92, scale = 1) +
-  draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1) +
-  draw_plot_label(c("", ""), c(0, 0.8), c(1, 0.95), size = 15)
+  draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1)
   plot
 }
 
