@@ -21,6 +21,8 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(forcats)
+library(cowplot)
+library(viridis)
 ```
 
 This is the same graph as the [website](statista.com). 
@@ -110,15 +112,38 @@ racially_diverse_music_2018 %>% ggplot() +
 # Combine Data 1 & 3
 
 #New data after join 
-one_and_three <- combined_data %>% ggplot() + 
-  geom_bar(mapping = aes(x=genre, y=percent_response, fill = genre), stat="identity") +
-  facet_wrap(vars(age_range), scales = "free_x") +
+preference_g <- combined_data %>% filter(genre == "Classic Rock") %>% ggplot() + 
+  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
+  #facet_wrap(vars(genre), scales = "free_x") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Genre")) + 
-  ggtitle("...") +
-  labs(x = "", y = "Total Share % of Respondents") +
+  guides(fill=guide_legend(title="Age Range")) +
+  labs(x = "Age Range", y = "% Response") +
   theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank())
-one_and_three
+  theme(axis.text.x = element_blank()) +
+  coord_cartesian(ylim = c(0,100)) +
+  theme(legend.position = "none") 
+#preference_g
 
+diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == "Classic Rock") %>% ggplot() + 
+  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue", width=0.5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(x = "", y = "") +
+  theme(axis.text.x = element_blank())+
+  theme(axis.text.y = element_blank())+
+  coord_cartesian(ylim = c(0,100)) 
+  
+#diversity_g
+
+ggdraw() +
+  draw_plot(preference_g + theme(legend.justification = "bottom"), 0, 0, .9, 1) +
+  draw_plot(diversity_g, 0.8, 0, .15, 1) +
+  draw_plot_label(c("A", "B"), c(0, 0.5), c(1, 0.92), size = 15)
+
+
+
+#plot_grid(preference_g, diversity_g, labels = c("A", "B"), align = "h") 
+
+#\n and Perception of Genre Diversity by Age")
+
+#classic_rock = preference_g %>% filter(genre == "Classic Rock")
 ```

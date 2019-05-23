@@ -51,6 +51,7 @@ use_data(racially_diverse_music_2018, overwrite = TRUE)
 
 Make New Graphs of data
 mutate with case or id 
+NOT CURRENTLY USING
 ```{r}
 genres_by_age_2018_mod <- genres_by_age_2018 %>% 
 mutate(Generation = case_when(
@@ -63,16 +64,19 @@ mutate(Generation = case_when(
         age_range == "65+" ~ "35 and older"))
 
 thing <- genres_by_age_2018_mod %>% inner_join(listening_frequency_by_age_2017, by = "Generation")
+
+use_data(racially_diverse_music_2018, overwrite = TRUE)
 ```
 
 
-diversity and music preference
+diversity and music preference combination
 ```{r}
 # https://www.statista.com/statistics/864622/music-genre-diversity/
 dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
+# Rename  the columns so that we can join the data
 racially_diverse_music_2018_2 = rename(dt3, "genre_old" = "X","diverse_percent_response" ="Share.of.respondents") %>% select (-X.1)
 
-
+# Change the values of the genres so that they match the ones in genres_by_age_2018
 racially_diverse_music_2018_mod <- racially_diverse_music_2018_2 %>% 
 mutate(genre = case_when(
          genre_old == "Rap/Hip-Hop" ~ "Hip Hop/Rap",
@@ -94,11 +98,23 @@ mutate(genre = case_when(
         genre_old == "Classical" ~ "Instrumental",
         genre_old == "Folk" ~ "Indie/Alternative Rock"))
 
+# remove the unused column
+racially_diverse_music_2018_mod <- racially_diverse_music_2018_mod %>% select (-genre_old)
+
+# remoe NA
+racially_diverse_music_2018_mod <- drop_na(racially_diverse_music_2018_mod)
+
+#avg same genres
+racially_diverse_music_2018_mod <- racially_diverse_music_2018_mod  %>% group_by(genre) %>% summarise(avg_response = mean(diverse_percent_response)) 
+
+# combninde the data in racially_diverse_music_2018_mod and genres_by_age_2018 by joining on genre
 combined_data <- racially_diverse_music_2018_mod %>% inner_join(genres_by_age_2018, by = "genre")
 
-drop <- combined_data %>% select (-genre_old)
-liked_diverse_music <- rename(drop[c(2,3,1,4)], "likeability_percent_response" = "percent_response")
+# Re order data columns and asign new data set
+liked_diverse_music_combo <- rename(combined_data[c(2,3,1,4)], "likeability_percent_response" = "percent_response")
 
+# export data
+use_data(liked_diverse_music_combo, overwrite = TRUE)
   
 ```
 
