@@ -24,6 +24,7 @@ library(forcats)
 ```
 
 This is the same graph as the [website](statista.com). 
+It shows the total percentage of favorite music genres by age group. 
 ```{r}
 # Data 1 Graph 1
 genres_by_age_2018 %>% ggplot() + 
@@ -35,8 +36,7 @@ genres_by_age_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-WE thougght we could do better...
-
+We thought that the graph that was on the website where we got the data from was a little messy and hard to understand, so we made a couple new graphs that we though better represented it. Data 1 Graph 2, shows the same data as Data 1 Graph 1, but separated into graphs based on Genre, with each color representing a different age group.
 ```{r}
 # Data 1 Graph 2
 p <- genres_by_age_2018 %>% ggplot() + 
@@ -51,6 +51,7 @@ p <- genres_by_age_2018 %>% ggplot() +
 p
 ```
 
+This it the third graph for the first data set in this package. It is similar to the Data 1 Graph 2, except that it is now separated into graphs based on age group. Each color represents a different genre.
 ```{r}
 # Data 1 Graph 3
 p <- genres_by_age_2018 %>% ggplot() + 
@@ -65,6 +66,7 @@ p <- genres_by_age_2018 %>% ggplot() +
 p
 ```
 
+This graph is our replica of the graph found on the website that we found our data from (https://www.statista.com/statistics/749666/music-listening-habits-age-usa/). It shows the Music listening frequency in the United States as of Agust 2017, by age.
 ```{r}
 # Data 2 Graph 1
 listening_frequency_by_age_2017 %>% 
@@ -84,7 +86,7 @@ for_cats package
 fct_reorder()
 ```
 
-
+This graph is a replica of the graph found on the website where we got the data from (https://www.statista.com/statistics/864622/music-genre-diversity/). It shows the public opinion on the racial diversity of selected music genres in the United States as of May 2018.
 ```{r}
 # Data 3 Graph 1
 racially_diverse_music_2018 %>% ggplot() + 
