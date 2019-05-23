@@ -119,13 +119,7 @@ racially_diverse_music_2018 %>% ggplot() +
 
 
 ```{r}
-# Combine Data 1 & 3
-genres <- racially_diverse_music_2018_mod$genre
-#plots <- plot.new()
-#loop.vector <- 1:10
-
-for( str_genre in genres){
-  #New data after join 
+generate_plots <- function(str_genre){
   preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
     geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
@@ -152,187 +146,15 @@ for( str_genre in genres){
   draw_plot_label(c("", ""), c(0, 0.8), c(1, 0.95), size = 15)
   plot
 }
+
+generate_plots("Classic Rock")
+generate_plots("Country/Western")
+generate_plots("Hip Hop/Rap")
+generate_plots("Indie/Alternative Rock")
+generate_plots("Instrumental")
+generate_plots("Pop Music")
+generate_plots("RnB (Rhythm and Blues)")
+generate_plots("Rock Music")
 ```
 
-START OF GRAPHS
-```{r}
-str_genre = "Classic Rock"
 
-preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Ranges")) +
-  labs(x = "Age Range", y = "% Response") +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0,100))
-
-diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Diversity", y = "") +
-  theme(axis.text.x = element_blank())+
-  theme(axis.text.y = element_blank())+
-  coord_cartesian(ylim = c(0,100)) 
- 
-ggdraw() +
-draw_text(paste(str_genre, "Genre Preference Compared\n to the Perception of Its Diversity by Age"), x = 0.5, y = .95) +
-draw_plot(preference_g + theme(legend.justification = "bottom"), x = 0, y = 0, width = 0.91, height =0.92, scale = 1) +
-draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1)
-```
-
-```{r}
-str_genre = "Country/Western"
-
-preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Ranges")) +
-  labs(x = "Age Range", y = "% Response") +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0,100))
-
-diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Diversity", y = "") +
-  theme(axis.text.x = element_blank())+
-  theme(axis.text.y = element_blank())+
-  coord_cartesian(ylim = c(0,100)) 
- 
-ggdraw() +
-draw_text(paste(str_genre, "Genre Preference Compared\n to the Perception of Its Diversity by Age"), x = 0.5, y = .95) +
-draw_plot(preference_g + theme(legend.justification = "bottom"), x = 0, y = 0, width = 0.91, height =0.92, scale = 1) +
-draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1)
-```
-
-```{r}
-str_genre = "Hip Hop/Rap"
-
-preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Ranges")) +
-  labs(x = "Age Range", y = "% Response") +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0,100))
-
-diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Diversity", y = "") +
-  theme(axis.text.x = element_blank())+
-  theme(axis.text.y = element_blank())+
-  coord_cartesian(ylim = c(0,100)) 
- 
-ggdraw() +
-draw_text(paste(str_genre, "Genre Preference Compared\n to the Perception of Its Diversity by Age"), x = 0.5, y = .95) +
-draw_plot(preference_g + theme(legend.justification = "bottom"), x = 0, y = 0, width = 0.91, height =0.92, scale = 1) +
-draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1)
-```
-
-```{r}
-str_genre = "Indie/Alternative Rock"
-
-preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Ranges")) +
-  labs(x = "Age Range", y = "% Response") +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0,100))
-
-diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Diversity", y = "") +
-  theme(axis.text.x = element_blank())+
-  theme(axis.text.y = element_blank())+
-  coord_cartesian(ylim = c(0,100)) 
- 
-ggdraw() +
-draw_text(paste(str_genre, "Genre Preference Compared\n to the Perception of Its Diversity by Age"), x = 0.5, y = .95) +
-draw_plot(preference_g + theme(legend.justification = "bottom"), x = 0, y = 0, width = 0.91, height =0.92, scale = 1) +
-draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1)
-```
-
-```{r}
-str_genre = "Instrumental"
-
-preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Ranges")) +
-  labs(x = "Age Range", y = "% Response") +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0,100))
-
-diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Diversity", y = "") +
-  theme(axis.text.x = element_blank())+
-  theme(axis.text.y = element_blank())+
-  coord_cartesian(ylim = c(0,100)) 
- 
-ggdraw() +
-draw_text(paste(str_genre, "Genre Preference Compared\n to the Perception of Its Diversity by Age"), x = 0.5, y = .95) +
-draw_plot(preference_g + theme(legend.justification = "bottom"), x = 0, y = 0, width = 0.91, height =0.92, scale = 1) +
-draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1)
-```
-
-```{r}
-str_genre = "Pop Music"
-
-preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Ranges")) +
-  labs(x = "Age Range", y = "% Response") +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0,100))
-
-diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Diversity", y = "") +
-  theme(axis.text.x = element_blank())+
-  theme(axis.text.y = element_blank())+
-  coord_cartesian(ylim = c(0,100)) 
- 
-ggdraw() +
-draw_text(paste(str_genre, "Genre Preference Compared\n to the Perception of Its Diversity by Age"), x = 0.5, y = .95) +
-draw_plot(preference_g + theme(legend.justification = "bottom"), x = 0, y = 0, width = 0.91, height =0.92, scale = 1) +
-draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1)
-```
-
-```{r}
-str_genre = "RnB (Rhythm and Blues)"
-
-preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Ranges")) +
-  labs(x = "Age Range", y = "% Response") +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0,100))
-
-diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == str_genre) %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Diversity", y = "") +
-  theme(axis.text.x = element_blank())+
-  theme(axis.text.y = element_blank())+
-  coord_cartesian(ylim = c(0,100)) 
- 
-ggdraw() +
-draw_text(paste(str_genre, "Genre Preference Compared\n to the Perception of Its Diversity by Age"), x = 0.5, y = .95) +
-draw_plot(preference_g + theme(legend.justification = "bottom"), x = 0, y = 0, width = 0.91, height =0.92, scale = 1) +
-draw_plot(diversity_g, x = 0.84, y = 0, width = 0.17, height = 0.92, scale = 1)
-```
