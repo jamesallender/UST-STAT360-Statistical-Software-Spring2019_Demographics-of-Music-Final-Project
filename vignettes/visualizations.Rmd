@@ -82,7 +82,7 @@ listening_frequency_by_age_2017 %>%
   theme(plot.title = element_text(hjust = 0.5))
 
 
-for_cats package
+# for_cats package
 fct_reorder()
 ```
 
@@ -108,4 +108,22 @@ racially_diverse_music_2018 %>% ggplot() +
   guides(fill=guide_legend(title="Age Ranges"))+
   ggtitle("Public opinion on the racial diversity of selected music genres\n in the United States as of May 2018") +
   theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+```{r}
+# Combine Data 1 & 3
+
+#New data after join 
+one_and_three <- combined_data %>% ggplot() + 
+  geom_bar(mapping = aes(x=genre, y=percent_response, fill = genre), stat="identity") +
+  facet_wrap(vars(age_range), scales = "free_x") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  guides(fill=guide_legend(title="Genre")) + 
+  ggtitle("...") +
+  labs(x = "", y = "Total Share % of Respondents") +
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(axis.text.x = element_blank())
+one_and_three
+
 ```
