@@ -15,12 +15,15 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library (musicDemographicsPackage)
-library (gdata)
-library (dplyr)
-library (tidyr)
-library (ggplot2)
-library (devtools)
+library(musicDemographicsPackage)
+library(gdata)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(forcats)
+library(cowplot)
+library(viridis)
+library(devtools)
 ```
 
 ```{r}
@@ -32,7 +35,7 @@ gather("age_range", "percent_response", -"genre")
 
 # https://www.statista.com/statistics/749666/music-listening-habits-age-usa/
 dt2 = read.xls("../inst/extdata/statistic_id749666_music-listening-frequency-in-the-us-2017-by-age.xlsx", sheet = 2,  skip = 2,header = TRUE)
-listening_frequency_by_age_2017 = rename(dt2, "Generation" = "X","4-6 per week" ="X4.6.times.a.week","1-3 per week"="X1.3.times.a.week","Few Times a Month" ="Few.times.a.month","Monthly or Less" ="Monthly.or.less") %>% select (-X.1) %>% gather("Frequency", "number", 2:7)
+listening_frequency_by_age_2017 = rename(dt2, "Generation" = "X","4-6 per week" ="X4.6.times.a.week","1-3 per week"="X1.3.times.a.week","Few Times a Month" ="Few.times.a.month","Monthly or Less" ="Monthly.or.less") %>% select (-X.1) %>% gather("Frequency", "percent", 2:7)
 
 # https://www.statista.com/statistics/864622/music-genre-diversity/
 dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
@@ -51,22 +54,22 @@ use_data(racially_diverse_music_2018, overwrite = TRUE)
 
 Make New Graphs of data
 mutate with case or id 
-NOT CURRENTLY USING
-```{r}
-genres_by_age_2018_mod <- genres_by_age_2018 %>% 
-mutate(Generation = case_when(
-       age_range == "16-19" ~ "Gen Z (18-24)",
-        age_range == "20-24" ~ "Gen Z (18-24)",
-        age_range == "25-34" ~ "Millennial (25-34)",
-        age_range == "35-44" ~ "35 and older",
-        age_range == "45-54" ~ "35 and older",
-        age_range == "55-64" ~ "35 and older",
-        age_range == "65+" ~ "35 and older"))
-
-thing <- genres_by_age_2018_mod %>% inner_join(listening_frequency_by_age_2017, by = "Generation")
-
-use_data(racially_diverse_music_2018, overwrite = TRUE)
-```
+#NOT CURRENTLY USING
+#```{r}
+#genres_by_age_2018_mod <- genres_by_age_2018 %>% 
+#mutate(Generation = case_when(
+#       age_range == "16-19" ~ "Gen Z (18-24)",
+#        age_range == "20-24" ~ "Gen Z (18-24)",
+#        age_range == "25-34" ~ "Millennial (25-34)",
+#        age_range == "35-44" ~ "35 and older",
+#        age_range == "45-54" ~ "35 and older",
+#        age_range == "55-64" ~ "35 and older",
+#        age_range == "65+" ~ "35 and older"))
+#
+#thing <- genres_by_age_2018_mod %>% inner_join(listening_frequency_by_age_2017, by = "Generation")
+#
+#use_data(racially_diverse_music_2018, overwrite = TRUE)
+#```
 
 
 diversity and music preference combination

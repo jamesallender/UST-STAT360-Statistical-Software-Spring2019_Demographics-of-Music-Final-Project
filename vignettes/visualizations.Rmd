@@ -94,12 +94,21 @@ racially_diverse_music_2018 %>% ggplot() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
   labs(x = "Genres", y = "% Response") + 
   ggtitle("Percent of People who Think a Genre is Racially Diverse\n in the United States as of May 2018") +
+  theme(plot.title = element_text(hjust = 0.5))+
+  coord_flip()
+```
+```{r}
+# Data 3 Graph 2
+racially_diverse_music_2018 %>% ggplot() + 
+  geom_bar(mapping = aes(x=genre, y=percent_response), stat="identity", color="white", fill="blue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(x = "Genres", y = "% Response") + 
+  ggtitle("Percent of People who Think a Genre is Racially Diverse\n in the United States as of May 2018") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-order by % respoce fct_reorder
 ```{r}
-# Data 3 Graph 1
+# Data 3 Graph 3
 racially_diverse_music_2018 %>% ggplot() + 
   geom_bar(mapping = aes(x = reorder(genre, -percent_response), y=percent_response), stat="identity", color="white", fill="blue") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
@@ -111,38 +120,42 @@ racially_diverse_music_2018 %>% ggplot() +
 
 ```{r}
 # Combine Data 1 & 3
-genres <- racially_diverse_music_2018_mod$genre
+#genres <- racially_diverse_music_2018_mod$genre
+#plots <- plot.new()
+#loop.vector <- 1:10
 
-
-#New data after join 
-preference_g <- combined_data %>% filter(genre == "Classic Rock") %>% ggplot() + 
-  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
-  #facet_wrap(vars(genre), scales = "free_x") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Age Range")) +
-  labs(x = "Age Range", y = "% Response") +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0,100)) +
-  theme(legend.position = "none") 
-#preference_g
-
-diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == "Classic Rock") %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Diversity", y = "") +
-  theme(axis.text.x = element_blank())+
-  theme(axis.text.y = element_blank())+
-  coord_cartesian(ylim = c(0,100)) 
+#for( str_genre in genres){
+  #New data after join 
+  preference_g <- combined_data %>% filter(genre == "Classic Rock") %>% ggplot() + 
+    geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    guides(fill=guide_legend(title="Age Range")) +
+    labs(x = "Age Range", y = "% Response") +
+    theme(plot.title = element_text(hjust = 0.5))+
+    theme(axis.text.x = element_blank()) +
+    coord_cartesian(ylim = c(0,100)) +
+    theme(legend.position = "none") 
+  #preference_g
   
-#diversity_g
-
-ggdraw() +
-  draw_plot(preference_g + theme(legend.justification = "bottom"), 0, 0, .85, 1) +
-  draw_plot(diversity_g, 0.8, 0, .15, 1) +
-  draw_plot_label(c("A", "B"), c(0, 0.5), c(1, 0.92), size = 15)
-
-
+  diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == "Classic Rock") %>% ggplot() + 
+    geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+    labs(x = "Diversity", y = "") +
+    theme(axis.text.x = element_blank())+
+    theme(axis.text.y = element_blank())+
+    coord_cartesian(ylim = c(0,100)) 
+    
+  #diversity_g
+  preference_g
+  
+  #plots <- c(plots, 
+  plot <- ggdraw() +
+  draw_plot(preference_g + theme(legend.justification = "bottom"), 0, 0, .8, 1) +
+  draw_plot(diversity_g, 0.75, 0, .2, 1) +
+  draw_plot_label(c("%", ""), c(0, 0.8), c(1, 0.95), size = 15)
+  plot
+#}
+#plots
 
 #plot_grid(preference_g, diversity_g, labels = c("A", "B"), align = "h") 
 
