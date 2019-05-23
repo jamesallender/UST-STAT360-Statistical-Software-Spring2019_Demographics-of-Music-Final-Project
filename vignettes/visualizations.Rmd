@@ -30,9 +30,9 @@ It shows the total percentage of favorite music genres by age group.
 genres_by_age_2018 %>% ggplot() + 
   geom_bar(mapping = aes(x=genre, y=percent_response, fill=age_range), stat="identity", color="white") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Genres", y = "Total Share % of Respondents") + 
+  labs(x = "Genres", y = "% Response") + 
   guides(fill=guide_legend(title="Age Ranges"))+
-  ggtitle("Favorite music genres among consumers in the United States\n as of July 2018, by age group") +
+  ggtitle("Age Grouped Preference for Music Genres Among Consumers in the\n United States as of July 2018") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
@@ -43,9 +43,9 @@ p <- genres_by_age_2018 %>% ggplot() +
   geom_bar(mapping = aes(x=genre, y=percent_response, fill = genre), stat="identity") +
   facet_wrap(vars(age_range), scales = "free_x") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  guides(fill=guide_legend(title="Age Ranges")) + 
-  ggtitle("Favorite music genres in the United States\n as of July 2018, by age group") +
-  labs(x = "", y = "Total Share % of Respondents") +
+  guides(fill=guide_legend(title="Genres")) + 
+  ggtitle("Age Group Genre Preferences in the United States\n as of July 2018") +
+  labs(x = "", y = "% Response") +
   theme(plot.title = element_text(hjust = 0.5))+
   theme(axis.text.x = element_blank())
 p
@@ -55,12 +55,12 @@ This it the third graph for the first data set in this package. It is similar to
 ```{r}
 # Data 1 Graph 3
 p <- genres_by_age_2018 %>% ggplot() + 
-  geom_bar(mapping = aes(x=genre, y=percent_response, fill = genre), stat="identity") +
-  facet_wrap(vars(age_range), scales = "free_x") +
+  geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
+  facet_wrap(vars(genre), scales = "free_x") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   guides(fill=guide_legend(title="Age Ranges")) + 
-  ggtitle("Favorite music genres in the United States\n as of July 2018, by age group") +
-  labs(x = "", y = "Total Share % of Respondents") +
+  ggtitle("Music Genre Preferences by Age in the United States\n as of July 2018") +
+  labs(x = "", y = "% Response") +
   theme(plot.title = element_text(hjust = 0.5))+
   theme(axis.text.x = element_blank())
 p
@@ -76,14 +76,11 @@ listening_frequency_by_age_2017 %>%
   geom_bar(mapping = aes(x=Frequency, y=number, fill = Frequency), stat="identity") +
   facet_grid(cols=vars(Generation))+
   theme(axis.text.x = element_blank())+
-  labs(x = "", y = "Total Share % of Respondents") +
-  guides(fill=guide_legend(title="Listening Ranges")) + 
-  ggtitle("Music listening frequency in the United States\n as of August 2017, by age") +
+  labs(x = "", y = "% Response") +
+  guides(fill=guide_legend(title="Frequencies")) + 
+  ggtitle("Age Range Music Listening Frequencies in the United States\n as of August 2017") +
   theme(plot.title = element_text(hjust = 0.5))
 
-
-# for_cats package
-fct_reorder()
 ```
 
 This graph is a replica of the graph found on the website where we got the data from (https://www.statista.com/statistics/864622/music-genre-diversity/). It shows the public opinion on the racial diversity of selected music genres in the United States as of May 2018.
@@ -92,9 +89,8 @@ This graph is a replica of the graph found on the website where we got the data 
 racially_diverse_music_2018 %>% ggplot() + 
   geom_bar(mapping = aes(x=genre, y=percent_response), stat="identity", color="white", fill="blue") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Genres", y = "Total Share % of Respondents") + 
-  guides(fill=guide_legend(title="Age Ranges"))+
-  ggtitle("Public opinion on the racial diversity of selected music genres\n in the United States as of May 2018") +
+  labs(x = "Genres", y = "% Response") + 
+  ggtitle("Percent of People who Think a Genre is Racially Diverse\n in the United States as of May 2018") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
@@ -102,11 +98,10 @@ order by % respoce fct_reorder
 ```{r}
 # Data 3 Graph 1
 racially_diverse_music_2018 %>% ggplot() + 
-  geom_bar(mapping = aes(x=genre, y=percent_response), stat="identity", color="white", fill="blue") +
+  geom_bar(mapping = aes(x = reorder(genre, -percent_response), y=percent_response), stat="identity", color="white", fill="blue") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Genres", y = "Total Share % of Respondents") + 
-  guides(fill=guide_legend(title="Age Ranges"))+
-  ggtitle("Public opinion on the racial diversity of selected music genres\n in the United States as of May 2018") +
+  labs(x = "Genres", y = "% Response") + 
+  ggtitle("Percent of People who Think a Genre is Racially Diverse\n in the United States as of May 2018") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 

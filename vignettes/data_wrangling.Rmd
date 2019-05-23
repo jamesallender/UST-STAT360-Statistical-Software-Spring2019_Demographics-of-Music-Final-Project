@@ -96,7 +96,7 @@ mutate(genre = case_when(
 
 combined_data <- racially_diverse_music_2018_mod %>% inner_join(genres_by_age_2018, by = "genre")
 
-drop <- combind_data %>% select (-genre_old)
+drop <- combined_data %>% select (-genre_old)
 liked_diverse_music <- rename(drop[c(2,3,1,4)], "likeability_percent_response" = "percent_response")
 
   
