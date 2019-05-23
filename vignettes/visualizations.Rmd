@@ -23,6 +23,7 @@ library(ggplot2)
 library(forcats)
 library(cowplot)
 library(viridis)
+library(devtools)
 ```
 
 This is the same graph as the [website](statista.com). 
@@ -110,6 +111,8 @@ racially_diverse_music_2018 %>% ggplot() +
 
 ```{r}
 # Combine Data 1 & 3
+genres <- racially_diverse_music_2018_mod$genre
+
 
 #New data after join 
 preference_g <- combined_data %>% filter(genre == "Classic Rock") %>% ggplot() + 
@@ -125,9 +128,9 @@ preference_g <- combined_data %>% filter(genre == "Classic Rock") %>% ggplot() +
 #preference_g
 
 diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == "Classic Rock") %>% ggplot() + 
-  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue", width=0.5) +
+  geom_bar(mapping = aes(x = genre, y=avg_response), stat="identity", color="white", fill="blue") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "", y = "") +
+  labs(x = "Diversity", y = "") +
   theme(axis.text.x = element_blank())+
   theme(axis.text.y = element_blank())+
   coord_cartesian(ylim = c(0,100)) 
@@ -135,7 +138,7 @@ diversity_g <- racially_diverse_music_2018_mod %>% filter(genre == "Classic Rock
 #diversity_g
 
 ggdraw() +
-  draw_plot(preference_g + theme(legend.justification = "bottom"), 0, 0, .9, 1) +
+  draw_plot(preference_g + theme(legend.justification = "bottom"), 0, 0, .85, 1) +
   draw_plot(diversity_g, 0.8, 0, .15, 1) +
   draw_plot_label(c("A", "B"), c(0, 0.5), c(1, 0.92), size = 15)
 
@@ -143,7 +146,7 @@ ggdraw() +
 
 #plot_grid(preference_g, diversity_g, labels = c("A", "B"), align = "h") 
 
-#\n and Perception of Genre Diversity by Age")
+#Genre Preference \n and Perception of Genre Diversity by Age")
 
 #classic_rock = preference_g %>% filter(genre == "Classic Rock")
 ```
