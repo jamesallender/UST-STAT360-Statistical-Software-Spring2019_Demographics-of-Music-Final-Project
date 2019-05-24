@@ -26,8 +26,8 @@ library(viridis)
 library(devtools)
 ```
 
-This is the same graph as the [website](statista.com). 
-It shows the total percentage of favorite music genres by age group. 
+This is intended to emulate the same graph as the original one from [website](https://www.statista.com/statistics/253915/favorite-music-genres-in-the-us/). 
+It shows how the total preferences of all age ranges for a perticular genre of music.
 ```{r}
 # Data 1 Graph 1
 genres_by_age_2018 %>% ggplot() + 
@@ -39,7 +39,7 @@ genres_by_age_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-We thought that the graph that was on the website where we got the data from was a little messy and hard to understand, so we made a couple new graphs that we though better represented it. Data 1 Graph 2, shows the same data as Data 1 Graph 1, but separated into graphs based on Genre, with each color representing a different age group.
+We thought that the original graph was a little messy and hard to understand, so we decided to use a faccet wrap to seperate the graphs based on age range to better ilistrate what the data is expressing.
 ```{r}
 # Data 1 Graph 2
 p <- genres_by_age_2018 %>% ggplot() + 
@@ -97,6 +97,8 @@ racially_diverse_music_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))+
   coord_flip()
 ```
+
+This is the same as graph 1, but with the x and y coordinates switched, which we thought was easier to visualize
 ```{r}
 # Data 3 Graph 2
 racially_diverse_music_2018 %>% ggplot() + 
@@ -107,6 +109,7 @@ racially_diverse_music_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+This graph is the same as 2, but ordered so it's least to greatest.
 ```{r}
 # Data 3 Graph 3
 racially_diverse_music_2018 %>% ggplot() + 
@@ -117,7 +120,7 @@ racially_diverse_music_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-
+These graphs represent each genre's likability compared to how diverse of a genre they are perceived to be.
 ```{r}
 generate_plots <- function(str_genre){
   preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
