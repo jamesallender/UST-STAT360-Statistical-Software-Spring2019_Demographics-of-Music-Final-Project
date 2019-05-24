@@ -97,6 +97,6 @@ liked_diverse_music_combo <- rename(combined_data[c(2,3,1,4)], "likeability_perc
 
 # export data
 use_data(liked_diverse_music_combo, overwrite = TRUE)
-  
+use_data(racially_diverse_music_2018_mod, overwrite = TRUE)
 ```
 

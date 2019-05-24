@@ -10,7 +10,9 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 8,
+  fig.height = 6
 )
 ```
 
@@ -26,8 +28,10 @@ library(viridis)
 library(devtools)
 ```
 
-This is intended to emulate the same graph as the original one from [website](https://www.statista.com/statistics/253915/favorite-music-genres-in-the-us/). 
-It shows how the total preferences of all age ranges for a perticular genre of music.
+#Age Preference for Music Genres Among Consumers in the United States as of July 2018
+
+## This is intended to emulate the same graph as the original one from  [website](https://www.statista.com/statistics/253915/favorite-music-genres-in-the-us/). 
+## It shows the total preferences of all age ranges for a perticular genre of music. We think that thus graph is not very descriptive of the data. It does show that which genres are the most popular additively across all age ranges, but we feel this does not realy discribe what is in the data. We can tell form the graph that Clasic Rock is the most popular, but aside from that we dont think we can determin much.
 ```{r}
 # Data 1 Graph 1
 genres_by_age_2018 %>% ggplot() + 
@@ -39,7 +43,7 @@ genres_by_age_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-We thought that the original graph was a little messy and hard to understand, so we decided to use a faccet wrap to seperate the graphs based on age range to better ilistrate what the data is expressing.
+## We thought that the original graph was a little messy and hard to understand, so for this second graph we decided to use a facet_wrap to seperate the stacked graphs based on age range to better illustrate what the data is expressing for each age group and better compare them. We can tell from the first graph that Classic Rock is the most popular in total but we can see in these graphs that it is not nearly the most popular among all age ranges and that this varies wildly. We can see that Clasic Rock is in general highly rated, but we can also see that Pop is pretty consistent as well.
 ```{r}
 # Data 1 Graph 2
 p <- genres_by_age_2018 %>% ggplot() + 
@@ -54,7 +58,7 @@ p <- genres_by_age_2018 %>% ggplot() +
 p
 ```
 
-This it the third graph for the first data set in this package. It is similar to the Data 1 Graph 2, except that it is now separated into graphs based on age group. Each color represents a different genre.
+## The third graph for the first data set in this package is very similar to the second one. After we made the second one we decided it would also be descriptive of the data to change the facet_wrap to separate by genre instead of by age range so that we can see how the different age range feel about a genre. This makes it pretty easy to tell that certain genres like Instrumental are very consistently low preferences across age ranges but that genres like Hip-Hop and Alternative Rock are much more variable.
 ```{r}
 # Data 1 Graph 3
 p <- genres_by_age_2018 %>% ggplot() + 
@@ -69,7 +73,10 @@ p <- genres_by_age_2018 %>% ggplot() +
 p
 ```
 
-This graph is our replica of the graph found on the website that we found our data from (https://www.statista.com/statistics/749666/music-listening-habits-age-usa/). It shows the Music listening frequency in the United States as of Agust 2017, by age.
+# Age Range Music Listening Frequencies in the United States\n as of August 2017
+
+## This graph is our replica of the graph found on the website that we found our data from (https://www.statista.com/statistics/749666/music-listening-habits-age-usa/).
+## It shows the Music listening frequency in the United States as of August 2017, by age, and pretty clearly seems to demonstrate that Gen Z is the most frequent listeners of music but that in general listening frequency across generations doesn't seem to vary much. We felt that this graph was a good representation of the data and could not think of any ways we thought it could be improved.
 ```{r}
 # Data 2 Graph 1
 listening_frequency_by_age_2017 %>% 
@@ -86,7 +93,10 @@ listening_frequency_by_age_2017 %>%
 
 ```
 
-This graph is a replica of the graph found on the website where we got the data from (https://www.statista.com/statistics/864622/music-genre-diversity/). It shows the public opinion on the racial diversity of selected music genres in the United States as of May 2018.
+# Percent of People who Think a Genre is Racially Diverse in the United States as of May 2018
+
+## This graph is a replica of the graph found on the website where we got the data from (https://www.statista.com/statistics/864622/music-genre-diversity/). 
+## It shows the public opinion on the racial diversity of selected music genres in the United States as of May 2018. It does list genres alphabetically which makes finding a genre easy, but it also makes it hard to see the ordering of people opinion. We also thought that it could be improved by flipping the direction of the graph
 ```{r}
 # Data 3 Graph 1
 racially_diverse_music_2018 %>% ggplot() + 
@@ -98,7 +108,7 @@ racially_diverse_music_2018 %>% ggplot() +
   coord_flip()
 ```
 
-This is the same as graph 1, but with the x and y coordinates switched, which we thought was easier to visualize
+## This is the first improvment we made to the first graph for this data set. We wanted to keep the alphabetical ordering to easily find a genre but we find the axis to more easily interpret the data. However we felt that this still makes it hard to draw conclusions about the entire data set instead of a single genres rough comparison.
 ```{r}
 # Data 3 Graph 2
 racially_diverse_music_2018 %>% ggplot() + 
@@ -109,7 +119,7 @@ racially_diverse_music_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-This graph is the same as 2, but ordered so it's least to greatest.
+## This is the second modification we made to the graph for the third data set. We changed the ordering so that it would order the genres in decreasing order of popularity. This makes it much more easy to interpret the entire data set and compare and interpret a genres ranking. It is clear from this that Rap is the most diverse genre, but we can allso see that a very close second is that people think that all genres are equally diverse which can give better contect to the data as a whole.
 ```{r}
 # Data 3 Graph 3
 racially_diverse_music_2018 %>% ggplot() + 
@@ -120,11 +130,15 @@ racially_diverse_music_2018 %>% ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-These graphs represent each genre's likability compared to how diverse of a genre they are perceived to be.
+# Genre Preference Compared to the Perception of Its Diversity by Age
+
+## These are the graphs of our combined data set of the first and third data sets after they have been transformed to be able to be joined. We wanted with these graphs to be able to draw a conclusion that none of the other graphs had tried to draw already. We wanted to show age ranges preference for a genre as well as how diverse that genre was. The diversity data does not contain information for age ranges. This made it much more difficult to visually compose the data. We decided to create a graph of the popularity of genres across age ranges and then place a second graph next to it that shows the public perception of how diverse that genre is. This shows us something we were not expecting. After making these graphs we can see that genres that are not preserved as very diverse are much more consistently liked across age ranges, and that genres that are perceived as more diverse are a lot more variable in how much different age ranges perfer them.
+
+## We were able to make these composed graphs by creating a function that made the graph for a genre and its age range preferences and a separate graph for the perceived diversity of a genre and then using cowplot we were able to arrange these plots in a way that was visually able to represent the data well. We then made function calls for each of our genres to generate their graphs.
 ```{r}
 generate_plots <- function(str_genre){
-  preference_g <- combined_data %>% filter(genre == str_genre) %>% ggplot() + 
-    geom_bar(mapping = aes(x=age_range, y=percent_response, fill = age_range), stat="identity") +
+  preference_g <- liked_diverse_music_combo %>% filter(genre == str_genre) %>% ggplot() + 
+    geom_bar(mapping = aes(x=age_range, y=likeability_percent_response, fill = age_range), stat="identity") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     guides(fill=guide_legend(title="Ranges")) +
     labs(x = "Age Range", y = "% Response") +
