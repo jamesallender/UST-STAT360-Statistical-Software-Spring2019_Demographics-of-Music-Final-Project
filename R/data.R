@@ -116,7 +116,8 @@
 #'set so that they could be joined together. Their were a bumber of genres that were
 #'grouped into a sigle genre because they were more granularly seperated in the second
 #'data set and we averaged the responce between all the genres to determine a value to
-#'use for the likability and
+#'use for the likability and percived diversiry. Note: each age range of a genre has the
+#'same percived diversity because that data was not broken down by age
 #'
 #' @format A data frame with 56 rows and 4 variables:
 #' \describe{
