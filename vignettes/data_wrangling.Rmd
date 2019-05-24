@@ -1,5 +1,5 @@
 ---
-title: "data_wrangling"
+title: "Data Wrangeling and Processing"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{data_wrangling}
@@ -26,53 +26,32 @@ library(viridis)
 library(devtools)
 ```
 
+## The code below reads in our data from the original excel files and transforms it into a usable tidy data set and exprots it to the data folder. This code also Modifys the variable names of the data sets to make them more usable for transformations and vizulizations.
 ```{r}
+# Read and tidy data 1
 # https://www.statista.com/statistics/253915/favorite-music-genres-in-the-us/
 dt1 = read.xls("../inst/extdata/statistic_id253915_favorite-music-genres-in-the-us-2018-by-age.xlsx", sheet = 2, skip = 2,header = TRUE)
 genres_by_age_2018 = rename(dt1, "genre" = "X","16-19" ="X16.19","20-24"="X20.24","25-34" ="X25.34","35-44" ="X35.44","45-54" ="X45.54","55-64" ="X55.64","65+" ="X65.") %>% 
 select (-X.1)%>%
 gather("age_range", "percent_response", -"genre")
 
+# Read and tidy data 2
 # https://www.statista.com/statistics/749666/music-listening-habits-age-usa/
 dt2 = read.xls("../inst/extdata/statistic_id749666_music-listening-frequency-in-the-us-2017-by-age.xlsx", sheet = 2,  skip = 2,header = TRUE)
 listening_frequency_by_age_2017 = rename(dt2, "Generation" = "X","4-6 per week" ="X4.6.times.a.week","1-3 per week"="X1.3.times.a.week","Few Times a Month" ="Few.times.a.month","Monthly or Less" ="Monthly.or.less") %>% select (-X.1) %>% gather("Frequency", "percent", 2:7)
 
+# Read and tidy data 3
 # https://www.statista.com/statistics/864622/music-genre-diversity/
 dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
 racially_diverse_music_2018 = rename(dt3, "genre" = "X","percent_response" ="Share.of.respondents") %>% select (-X.1)
 
-saveRDS(genres_by_age_2018, file="../data/genres_by_age_2018.rds")
-saveRDS(listening_frequency_by_age_2017, file="../data/listening_frequency_by_age_2017.rds")
-saveRDS(racially_diverse_music_2018, file="../data/racially_diverse_music_2018.rds")
-
+# Export Data Sets
 use_data(genres_by_age_2018, overwrite = TRUE)
 use_data(listening_frequency_by_age_2017, overwrite = TRUE)
 use_data(racially_diverse_music_2018, overwrite = TRUE)
-
-
 ```
 
-Make New Graphs of data
-mutate with case or id 
-#NOT CURRENTLY USING
-#```{r}
-#genres_by_age_2018_mod <- genres_by_age_2018 %>% 
-#mutate(Generation = case_when(
-#       age_range == "16-19" ~ "Gen Z (18-24)",
-#        age_range == "20-24" ~ "Gen Z (18-24)",
-#        age_range == "25-34" ~ "Millennial (25-34)",
-#        age_range == "35-44" ~ "35 and older",
-#        age_range == "45-54" ~ "35 and older",
-#        age_range == "55-64" ~ "35 and older",
-#        age_range == "65+" ~ "35 and older"))
-#
-#thing <- genres_by_age_2018_mod %>% inner_join(listening_frequency_by_age_2017, by = "Generation")
-#
-#use_data(racially_diverse_music_2018, overwrite = TRUE)
-#```
-
-
-diversity and music preference combination
+## This code segment combinds the data from data set 1 and the data from data set 2 and creates a new tidy data set from them that describes peoples preference for music genres as well as how people feel about how diverse a genre is.
 ```{r}
 # https://www.statista.com/statistics/864622/music-genre-diversity/
 dt3 = read.xls("../inst/extdata/statistic_id864622_music-genres-which-have-the-most-racial-diversity-in-the-us-2018.xlsx", sheet = 2, skip = 2, header = TRUE)
@@ -82,7 +61,7 @@ racially_diverse_music_2018_2 = rename(dt3, "genre_old" = "X","diverse_percent_r
 # Change the values of the genres so that they match the ones in genres_by_age_2018
 racially_diverse_music_2018_mod <- racially_diverse_music_2018_2 %>% 
 mutate(genre = case_when(
-         genre_old == "Rap/Hip-Hop" ~ "Hip Hop/Rap",
+        genre_old == "Rap/Hip-Hop" ~ "Hip Hop/Rap",
         genre_old == "Pop" ~ "Pop Music",
         genre_old == "Jazz" ~ "RnB (Rhythm and Blues)",
         genre_old == "Blues" ~ "RnB (Rhythm and Blues)",
